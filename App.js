@@ -6,106 +6,87 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, {useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
+  SafeAreaView,
+  Image,
+  TextInput,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+const Logo = require('./src/assets/images/react-native-logo.png');
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [value, setValue] = useState('');
+  const onPressTitle = () => {
+    setCount(count + 1);
   };
-
+  const onChangeText = text => {
+    setValue(text);
+  };
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <SafeAreaView style={styles.container}>
+      {/* <View style={styles.block1} /> */}
+      {/* <View style={styles.block2} /> */}
+      {/* <Image
+        style={styles.image}
+        // source={Logo}
+        // source={{
+        //   uri: 'https://c.tenor.com/nwbxEGQINOsAAAAd/pet-dog.gif',
+        // }}
+        source={{
+          uri: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=685&q=80',
+        }}
+        loadingIndicatorSource={{
+          uri: 'https://c.tenor.com/nwbxEGQINOsAAAAd/pet-dog.gif',
+        }}
+      /> */}
+      <Text
+        style={styles.title}
+        // onPress={onPressTitle}
+        allowFontScaling={true}
+        // disabled={count > 0}
+        numberOfLines={1}
+        selectionColor={count > 0 ? 'green' : '#000000'}>
+        {`My Cool App: pressed ${count}`}
+      </Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={value}
+        placeholder="Your Email"
+        keyboardType="email-address"
+        autoComplete="email"
+        autoCorrect={false}
+        clearButtonMode="always"
+      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    flexDirection: 'column',
   },
-  sectionTitle: {
+  block1: {
+    backgroundColor: 'green',
+    flex: 0.3,
+  },
+  block2: {
+    backgroundColor: 'purple',
+    flex: 0.7,
+  },
+  title: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  image: {
+    width: 400,
+    height: 400,
+    resizeMode: 'contain',
   },
 });
 
