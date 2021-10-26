@@ -17,6 +17,7 @@ import {
   ScrollView,
 } from 'react-native';
 import HomeSlider from './src/components/sliders/homeSlider';
+import EmployeeList from './src/components/employee/employeeList';
 
 const Logo = require('./src/assets/images/react-native-logo.png');
 
@@ -42,12 +43,17 @@ const sliders = [
 ];
 const App = () => {
   return (
-    <View>
-      <HomeSlider sliders={sliders} />
+    <View style={styles.container}>
+      {/* <HomeSlider sliders={sliders} /> */}
+      <EmployeeList />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default App;
