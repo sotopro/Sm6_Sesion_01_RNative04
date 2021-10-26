@@ -12,7 +12,7 @@ import faker from 'faker';
 
 faker.seed(10);
 
-const DATA = [...Array(25).keys()].map((_, i) => {
+const DATA = [...Array(200).keys()].map((_, i) => {
   return {
     key: faker.datatype.uuid(),
     image: `https://randomuser.me/api/portraits/${faker.helpers.randomize([
@@ -92,6 +92,11 @@ const EmployeeList = () => {
               </View>
             </Animated.View>
           );
+        }}
+        initialNumToRender={10}
+        refreshing={false}
+        onRefresh={() => {
+          console.warn('refreshing');
         }}
       />
     </View>
