@@ -1,5 +1,13 @@
-import React from 'react';
-import {View, StatusBar, StyleSheet, FlatList, Image, Text} from 'react-native';
+import React, {useRef} from 'react';
+import {
+  View,
+  StatusBar,
+  StyleSheet,
+  FlatList,
+  Image,
+  Text,
+  Animated,
+} from 'react-native';
 import faker from 'faker';
 
 faker.seed(10);
@@ -17,7 +25,12 @@ const DATA = [...Array(25).keys()].map((_, i) => {
   };
 });
 
+const AVATAR_SIZE = 60;
+const SPACING = 20;
+const ITEM_SIZE = AVATAR_SIZE + SPACING * 3.35;
+
 const EmployeeList = () => {
+  const scrollY = useRef(new Animated.Value(0)).current;
   return (
     <View style={styles.container}>
       <Image
@@ -28,20 +41,43 @@ const EmployeeList = () => {
         blurRadius={40}
       />
       <StatusBar hidden />
-      <FlatList
+      <Animated.FlatList
         data={DATA}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: scrollY,
+                },
+              },
+            },
+          ],
+          {useNativeDriver: true},
+        )}
         keyExtractor={item => item.key}
         contentContainerStyle={styles.flatList}
         renderItem={({item, index}) => {
+          const inputRange = [
+            -1,
+            0,
+            ITEM_SIZE * index,
+            ITEM_SIZE * (index + 2),
+          ];
+          const scale = scrollY.interpolate({
+            inputRange,
+            outputRange: [1, 1, 1, 0],
+          });
           return (
-            <View style={styles.containerEmployeeList}>
+            <Animated.View
+              style={[styles.containerEmployeeList, {transform: [{scale}]}]}>
               <Image source={{uri: item.image}} style={styles.imageEmployee} />
               <View>
                 <Text style={styles.name}>{item.name}</Text>
                 <Text style={styles.jobTitle}>{item.jobTitle}</Text>
                 <Text style={styles.email}>{item.email}</Text>
               </View>
-            </View>
+            </Animated.View>
           );
         }}
       />
@@ -57,8 +93,8 @@ const styles = StyleSheet.create({
   containerEmployeeList: {
     backgroundColor: 'rgba(255,255,255, 0.8)',
     flexDirection: 'row',
-    padding: 20,
-    marginBottom: 20,
+    padding: SPACING,
+    marginBottom: SPACING,
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: {
@@ -70,14 +106,14 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
   flatList: {
-    padding: 20,
+    padding: SPACING,
     paddingTop: StatusBar.currentHeight || 42,
   },
   imageEmployee: {
-    width: 60,
-    height: 60,
-    borderRadius: 20,
-    marginRight: 20,
+    width: AVATAR_SIZE,
+    height: AVATAR_SIZE,
+    borderRadius: SPACING,
+    marginRight: SPACING,
   },
   name: {
     fontSize: 20,
