@@ -64,13 +64,26 @@ const EmployeeList = () => {
             ITEM_SIZE * index,
             ITEM_SIZE * (index + 2),
           ];
+          const opacityInputRange = [
+            -1,
+            0,
+            ITEM_SIZE * index,
+            ITEM_SIZE * (index + 0.5),
+          ];
           const scale = scrollY.interpolate({
             inputRange,
             outputRange: [1, 1, 1, 0],
           });
+          const opacity = scrollY.interpolate({
+            inputRange: opacityInputRange,
+            outputRange: [1, 1, 1, 0],
+          });
           return (
             <Animated.View
-              style={[styles.containerEmployeeList, {transform: [{scale}]}]}>
+              style={[
+                styles.containerEmployeeList,
+                {opacity, transform: [{scale}]},
+              ]}>
               <Image source={{uri: item.image}} style={styles.imageEmployee} />
               <View>
                 <Text style={styles.name}>{item.name}</Text>
