@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 import HomeSlider from './src/components/sliders/homeSlider';
 import EmployeeList from './src/components/employee/employeeList';
+import Location from './src/scenes/location';
 
 const Logo = require('./src/assets/images/react-native-logo.png');
 
@@ -45,7 +46,8 @@ const App = () => {
   return (
     <View style={styles.container}>
       {/* <HomeSlider sliders={sliders} /> */}
-      <EmployeeList />
+      {/* <EmployeeList /> */}
+      <Location />
     </View>
   );
 };
