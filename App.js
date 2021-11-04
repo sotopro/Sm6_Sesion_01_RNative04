@@ -8,10 +8,13 @@
 
 import React from 'react';
 import Location from './src/scenes/location';
-import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './src/scenes/home';
+import Settings from './src/scenes/settings';
+import Details from './src/scenes/details';
 
 const sliders = [
   {
@@ -34,30 +37,55 @@ const sliders = [
   },
 ];
 
-const Stack = createNativeStackNavigator();
+const HomeStack = createNativeStackNavigator();
+const SettingsStack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
+
+const HomeStackScreen = () => {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Location" component={Location} />
+      <SettingsStack.Screen name="Details" component={Details} />
+    </HomeStack.Navigator>
+  );
+};
+
+const SettingsStackScreen = () => {
+  return (
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen name="Settings" component={Settings} />
+      <SettingsStack.Screen name="Details" component={Details} />
+    </SettingsStack.Navigator>
+  );
+};
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen
-          name="Location"
-          options={({route}) => ({
-            title: route.params.id,
-            headerStyle: {backgroundColor: '#f4511e'},
-            headerTintColor: '#ffffff',
-            headerTitleStyle: {fontWeight: 'bold'},
-            headerRight: () => (
-              <Button
-                onPress={() => alert('This is a button!')}
-                title="Info"
-                color="#212121"
-              />
-            ),
-          })}>
-          {props => <Location {...props} extraData={sliders} />}
-        </Stack.Screen>
-      </Stack.Navigator>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused ? 'ios-home' : 'ios-home-outline';
+            } else if (route.name === 'Settings') {
+              iconName = focused ? 'ios-settings' : 'ios-settings-outline';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+          headerShown: false,
+        })}>
+        <Tab.Screen name="Home" component={HomeStackScreen} />
+        <Tab.Screen
+          name="Settings"
+          options={{tabBarBadge: 3}}
+          component={SettingsStackScreen}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
