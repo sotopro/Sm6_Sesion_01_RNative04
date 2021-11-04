@@ -16,7 +16,9 @@ import Geolocation from 'react-native-geolocation-service';
 import VIForegroundService from '@voximplant/react-native-foreground-service';
 
 const {width, height} = Dimensions.get('window');
-const Location = ({navigation}) => {
+const Location = ({route, navigation}) => {
+  const {id, routeName} = route.params;
+  console.warn({id, routeName});
   console.warn({navigation});
   const [dark, setDark] = useState(false);
   const [location, setLocation] = useState();

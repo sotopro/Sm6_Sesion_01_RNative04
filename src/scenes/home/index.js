@@ -9,7 +9,12 @@ const Home = ({navigation}) => {
       <Button
         color="#f194ff"
         title="Go to Location"
-        onPress={() => navigation.navigate('Location')}
+        onPress={() =>
+          navigation.navigate('Location', {
+            id: '1',
+            routeName: 'Home',
+          })
+        }
       />
     </View>
   );

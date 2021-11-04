@@ -8,6 +8,7 @@
 
 import React from 'react';
 import Location from './src/scenes/location';
+import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './src/scenes/home';
@@ -39,7 +40,21 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Location">
+        <Stack.Screen
+          name="Location"
+          options={({route}) => ({
+            title: route.params.id,
+            headerStyle: {backgroundColor: '#f4511e'},
+            headerTintColor: '#ffffff',
+            headerTitleStyle: {fontWeight: 'bold'},
+            headerRight: () => (
+              <Button
+                onPress={() => alert('This is a button!')}
+                title="Info"
+                color="#212121"
+              />
+            ),
+          })}>
           {props => <Location {...props} extraData={sliders} />}
         </Stack.Screen>
       </Stack.Navigator>
