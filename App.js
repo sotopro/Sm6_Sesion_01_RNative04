@@ -6,21 +6,11 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Image,
-  TextInput,
-  ScrollView,
-} from 'react-native';
-import HomeSlider from './src/components/sliders/homeSlider';
-import EmployeeList from './src/components/employee/employeeList';
+import React from 'react';
 import Location from './src/scenes/location';
-
-const Logo = require('./src/assets/images/react-native-logo.png');
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Home from './src/scenes/home';
 
 const sliders = [
   {
@@ -42,20 +32,19 @@ const sliders = [
       'https://images.unsplash.com/photo-1583336663277-620dc1996580?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1469&q=80',
   },
 ];
+
+const Stack = createNativeStackNavigator();
 const App = () => {
   return (
-    <View style={styles.container}>
-      {/* <HomeSlider sliders={sliders} /> */}
-      {/* <EmployeeList /> */}
-      <Location />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Location">
+          {props => <Location {...props} extraData={sliders} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
