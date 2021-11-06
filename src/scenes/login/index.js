@@ -5,7 +5,7 @@ const Login = ({navigation}) => {
   console.warn({navigation});
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
+      <Text style={styles.title}>Login</Text>
     </View>
   );
 };
