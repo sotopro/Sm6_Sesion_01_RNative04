@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
+
+import Button from '../core/button';
 
 const SubSlide = ({subtitle, description, last, onPress}) => {
   return (
@@ -7,8 +9,8 @@ const SubSlide = ({subtitle, description, last, onPress}) => {
       <Text style={styles.subtitle}>{subtitle}</Text>
       <Text style={styles.description}>{description}</Text>
       <Button
-        title={last ? "Let's get stated" : 'Next'}
-        color={last ? '#ffffff' : '#0C0D34'}
+        label={last ? "Let's get stated" : 'Next'}
+        variant={last ? 'primary' : 'default'}
         {...{onPress}}
       />
     </View>
