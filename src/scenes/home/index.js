@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import Carousel from '../../components/carousel';
-
+import CategorySliderItem from '../../components/category-slider/category-slider-item';
 const data = [
   {
     id: 1,
@@ -33,11 +33,25 @@ const data = [
   },
 ];
 
+const categoryData = {
+  id: 1,
+  name: 'Shoes',
+  image:
+    'https://images.unsplash.com/photo-1549298916-b41d501d3772?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1412&q=80',
+  description: 'Shoes',
+};
 const Home = ({navigation}) => {
   console.warn({navigation});
   return (
     <SafeAreaView style={styles.container}>
-      {data.length > 0 ? <Carousel data={data} /> : null}
+      {data.length > 0 ? (
+        <View style={{flex: 1}}>
+          <Carousel data={data} />
+        </View>
+      ) : null}
+      <View style={{flex: 1}}>
+        <CategorySliderItem item={categoryData} />
+      </View>
     </SafeAreaView>
   );
 };
