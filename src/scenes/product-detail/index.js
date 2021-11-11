@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, ScrollView, Dimensions} from 'react-native';
 import Button from '../../components/core/button/index';
+import ProductDetailSlider from '../../components/product-detail-slider/index';
 
-const { width, height } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const ProductDetail = ({navigation, route}) => {
   const {products} = route.params;
-  const {id, name, category, price, description, images} = products;
+  const {name, category, price, description, images} = products;
   const goToShoppingCart = () => {
     console.warn('Go to shopping cart');
   };
@@ -17,7 +18,7 @@ const ProductDetail = ({navigation, route}) => {
         <Text style={styles.category}>{category}</Text>
       </View>
       <View style={styles.sliderContainer}>
-        <Text>Slider</Text>
+        <ProductDetailSlider data={images} />
       </View>
       <View style={styles.content}>
         <View style={styles.titleContainer}>
