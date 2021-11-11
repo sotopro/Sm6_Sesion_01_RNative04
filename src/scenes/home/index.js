@@ -86,6 +86,7 @@ const productData = [
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
+    category: 'T-Shirt',
     color: [
       {
         id: 1,
@@ -122,6 +123,7 @@ const productData = [
   {
     id: 1,
     name: 'CAMISA FLORAL',
+    category: 'T-Shirt',
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
@@ -161,6 +163,7 @@ const productData = [
   {
     id: 1,
     name: 'CAMISA FLORAL',
+    category: 'T-Shirt',
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
@@ -200,6 +203,7 @@ const productData = [
   {
     id: 1,
     name: 'CAMISA FLORAL',
+    category: 'T-Shirt',
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
@@ -239,6 +243,7 @@ const productData = [
   {
     id: 1,
     name: 'CAMISA FLORAL',
+    category: 'T-Shirt',
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
@@ -278,6 +283,7 @@ const productData = [
   {
     id: 1,
     name: 'CAMISA FLORAL',
+    category: 'T-Shirt',
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
@@ -317,6 +323,7 @@ const productData = [
   {
     id: 1,
     name: 'CAMISA FLORAL',
+    category: 'T-Shirt',
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
@@ -356,6 +363,7 @@ const productData = [
   {
     id: 1,
     name: 'CAMISA FLORAL',
+    category: 'T-Shirt',
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
@@ -395,6 +403,7 @@ const productData = [
   {
     id: 1,
     name: 'CAMISA FLORAL',
+    category: 'T-Shirt',
     description:
       'CAMISA CONFECCIONADA EN TEJIDO CON ALTA ELASTICIDAD. CUELLO BOWLING Y MANGA CORTA. CIERRE FRONTAL DE BOTONADURA.',
     price: '149,00',
@@ -439,10 +448,20 @@ const Home = ({navigation}) => {
   const scrollXCategories = new Animated.Value(0);
   const scrollXProducts = new Animated.Value(0);
   const categoryDetail = item => {
-    console.warn(item);
+    const productCategory = productData.filter(
+      product => product.category === item.name,
+    );
+    navigation.navigate('CategoryDetail', {
+      products: productCategory,
+      title: item.name,
+    });
   };
+  
   const productDetail = item => {
-    console.warn(item);
+    navigation.navigate('ProductDetail', {
+      products: item,
+      title: item.name,
+    });
   };
   return (
     <SafeAreaView style={styles.container}>

@@ -4,6 +4,7 @@ import Location from '../scenes/location/index';
 import Dashboard from '../scenes/dashboard/index';
 import OrderDetail from '../scenes/order-detail/index';
 import Home from '../scenes/home/index';
+import CategoryDetail from '../scenes/category-detail';
 import Products from '../scenes/products/index';
 import ProductDetail from '../scenes/product-detail/index';
 import Cart from '../scenes/cart/index';
@@ -43,7 +44,14 @@ const MainStackNavigator = props => {
         name="ProductDetail"
         component={ProductDetail}
         options={({route}) => ({
-          title: route.params.productName,
+          title: route.params.title,
+        })}
+      />
+      <Stack.Screen
+        name="CategoryDetail"
+        component={CategoryDetail}
+        options={({route}) => ({
+          title: route.params.title,
         })}
       />
       <Stack.Screen name="Cart" component={Cart} />
