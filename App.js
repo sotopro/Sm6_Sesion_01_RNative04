@@ -6,15 +6,10 @@
  * @flow strict-local
  */
 import React from 'react';
-import {DrawerStackNavigator} from './src/route/drawer';
-import {NavigationContainer} from '@react-navigation/native';
+import Providers from './src/route/index';
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <DrawerStackNavigator />
-    </NavigationContainer>
-  );
+  return <Providers />;
 };
 
 export default App;

@@ -6,9 +6,10 @@ import {AuthStackNavigator} from './auth';
 const Drawer = createDrawerNavigator();
 
 const DrawerStackNavigator = props => {
+  const {user} = props;
   return (
     <Drawer.Navigator
-      initialRouteName="AuthStackNavigator"
+      initialRouteName={user ? 'Home' : 'AuthStackNavigator'}
       screenOptions={{
         headerShown: false,
       }}>

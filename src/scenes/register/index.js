@@ -13,13 +13,9 @@ import Button from '../../components/core/button/index';
 const {width, height} = Dimensions.get('window');
 const editable = false;
 
-const Login = ({navigation}) => {
-  console.warn({navigation});
-  const submitLogin = () => {
-    navigation.navigate('Home');
-  };
-  const goToRegister = () => {
-    navigation.navigate('Register');
+const Register = ({navigation}) => {
+  const submitRegister = () => {
+    navigation.navigate('Login');
   };
   return (
     <View style={styles.container}>
@@ -34,7 +30,7 @@ const Login = ({navigation}) => {
       <View style={styles.formContainer}>
         <View style={styles.border} />
         <View style={styles.welcome}>
-          <Text style={styles.title}>Login</Text>
+          <Text style={styles.title}>Register</Text>
           <ScrollView style={{flex: 1}}>
             <View
               pointerEvents={editable ? 'none' : 'auto'}
@@ -71,15 +67,9 @@ const Login = ({navigation}) => {
             </View>
             <View style={styles.buttonContainer}>
               <Button
-                label="Register"
-                onPress={() => goToRegister()}
-                maxWidth={width / 3}
-              />
-              <Button
                 variant="primary"
-                label="Logijn"
-                onPress={() => submitLogin()}
-                maxWidth={width / 3}
+                label="Login"
+                onPress={() => submitRegister()}
               />
             </View>
           </ScrollView>
@@ -150,4 +140,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;
