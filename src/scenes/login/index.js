@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
+import {AuthContext} from '../../route/auth-provider';
 import {
   View,
   Text,
@@ -14,9 +15,17 @@ const {width, height} = Dimensions.get('window');
 const editable = false;
 
 const Login = ({navigation}) => {
-  console.warn({navigation});
-  const submitLogin = () => {
-    navigation.navigate('Home');
+  const {login} = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitLogin = async () => {
+    try {
+      const data = await login(email, password);
+      navigation.navigate('Home', {user: data});
+    } catch (error) {
+      console.log(error);
+    }
   };
   const goToRegister = () => {
     navigation.navigate('Register');
@@ -42,8 +51,11 @@ const Login = ({navigation}) => {
               <Text style={styles.label}>Email</Text>
               <TextInput
                 // value=""
-                onChangeText={() => {}}
+                onChangeText={value => {
+                  setEmail(value);
+                }}
                 onBlur={() => {}}
+                keyboardType="email-address"
                 editable={!editable}
                 onFocuss={() => {}}
                 style={styles.textInput}
@@ -58,7 +70,9 @@ const Login = ({navigation}) => {
               <Text style={styles.label}>Password</Text>
               <TextInput
                 // value=""
-                onChangeText={() => {}}
+                onChangeText={value => {
+                  setPassword(value);
+                }}
                 onBlur={() => {}}
                 editable={!editable}
                 onFocuss={() => {}}
@@ -77,7 +91,7 @@ const Login = ({navigation}) => {
               />
               <Button
                 variant="primary"
-                label="Logijn"
+                label="Login"
                 onPress={() => submitLogin()}
                 maxWidth={width / 3}
               />

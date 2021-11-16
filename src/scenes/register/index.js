@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
+import {AuthContext} from '../../route/auth-provider';
 import {
   View,
   Text,
@@ -14,8 +15,17 @@ const {width, height} = Dimensions.get('window');
 const editable = false;
 
 const Register = ({navigation}) => {
-  const submitRegister = () => {
-    navigation.navigate('Login');
+  const {register} = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitRegister = async () => {
+    try {
+      const data = await register(email, password);
+      navigation.navigate('Login', {user: data});
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <View style={styles.container}>
@@ -38,7 +48,10 @@ const Register = ({navigation}) => {
               <Text style={styles.label}>Email</Text>
               <TextInput
                 // value=""
-                onChangeText={() => {}}
+                onChangeText={value => {
+                  setEmail(value);
+                }}
+                keyboardType="email-address"
                 onBlur={() => {}}
                 editable={!editable}
                 onFocuss={() => {}}
@@ -54,7 +67,9 @@ const Register = ({navigation}) => {
               <Text style={styles.label}>Password</Text>
               <TextInput
                 // value=""
-                onChangeText={() => {}}
+                onChangeText={value => {
+                  setPassword(value);
+                }}
                 onBlur={() => {}}
                 editable={!editable}
                 onFocuss={() => {}}
@@ -68,7 +83,7 @@ const Register = ({navigation}) => {
             <View style={styles.buttonContainer}>
               <Button
                 variant="primary"
-                label="Login"
+                label="Register"
                 onPress={() => submitRegister()}
               />
             </View>
